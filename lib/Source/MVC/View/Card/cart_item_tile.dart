@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tryhard/Source/MVC/Controller/cart_controller.dart';
-import 'package:tryhard/Source/MVC/Model/cart_item_model.dart';
+
+import '../../temp_model/cart_item_model.dart';
 
 class CartItemTile extends StatelessWidget {
   final int index;

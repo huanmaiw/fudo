@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tryhard/Core/Res/res_insert.dart';
-import 'package:tryhard/Source/MVC/View/Post/post_screen.dart';
+import 'package:get/get.dart';
+import '../../../../../Core/Res/res_insert.dart';
+import '../../Post/post_screen.dart';
 import 'home_best_seller_section.dart';
 import 'home_category_section.dart';
 import 'home_combo_suggestion_section.dart';
@@ -10,53 +11,47 @@ import 'home_search_bar.dart';
 import 'home_slider.dart';
 import 'home_voucher_section.dart';
 
-class HomeContent extends StatefulWidget {
-  const HomeContent({super.key});
+class HomeController extends GetxController {
+  var navigated = false.obs;
+  final ScrollController scrollController = ScrollController();
 
   @override
-  State<HomeContent> createState() => _HomeContentState();
-}
-
-class _HomeContentState extends State<HomeContent> {
-  final ScrollController _scrollController = ScrollController();
-  bool _navigated = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_handleScroll);
+  void onInit() {
+    super.onInit();
+    scrollController.addListener(_handleScroll);
   }
 
   void _handleScroll() {
-    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 50 &&
-        !_navigated) {
-      _navigated = true;
+    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 50 && !navigated.value) {
+      navigated.value = true;
 
-      // Delay để scroll xong đã
       Future.delayed(const Duration(milliseconds: 300), () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const PostScreen()), // màn tiếp theo
-        ).then((_) {
-          _navigated = false; // reset khi quay về
+        Get.to(() => const PostScreen())?.then((_) {
+          navigated.value = false; // Reset khi quay về
         });
       });
     }
   }
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
   }
+}
+
+class HomeContent extends StatelessWidget {
+  const HomeContent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.put(HomeController()); // Ensure HomeController is created
+
     return SafeArea(
       child: NotificationListener<ScrollNotification>(
         onNotification: (_) => true,
         child: SingleChildScrollView(
-          controller: _scrollController,
+          controller: homeController.scrollController, // Now scrollController is correctly used
           child: Column(
             children: [
               const HomeHeader(),
@@ -68,16 +63,18 @@ class _HomeContentState extends State<HomeContent> {
               const HomeCategorySection(),
               const HomeComboSuggestionSection(),
               ResInset.g20,
-              SizedBox(height: 50,),
+              SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Tiếp tục vuốt lên để đọc",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      )),
+                  const Text(
+                    "Tiếp tục vuốt lên để đọc",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   Image.asset("assets/pub/ttt.png"),
                 ],
               ),
@@ -89,3 +86,4 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 }
+

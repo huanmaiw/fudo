@@ -97,30 +97,32 @@ class _NotificationScreenState extends State<NotificationScreen>
                                   top: Radius.circular(25),
                                 ),
                               ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children:  [
-                                  Image.asset("assets/pub/nitiii.png"),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Chương trình KM dành riêng cho khách hàng mua lần đầu sắp kết thúc",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Nhận ngay 100k khi bạn mua hàng lần đầu tại Fudo và giới thiệu tới người quen cùng sử dụng",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Gỗ mất rất nhiều thời gian để tái tạo, trong khi cây tre chỉ cần khoảng 2-3 năm. Sử dụng khăn giấy khô làm từ rừng tre đạt chuẩn FSC giúp bảo vệ môi trường bền vững hơn.",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Image.asset("assets/icon/iconnot.png"),
-                                  SizedBox(height: 10),
-                                  Text("Đóng", style: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.bold),),
-                                ],
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children:  [
+                                    Image.asset("assets/pub/nitiii.png"),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Chương trình KM dành riêng cho khách hàng mua lần đầu sắp kết thúc",
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Nhận ngay 100k khi bạn mua hàng lần đầu tại Fudo và giới thiệu tới người quen cùng sử dụng",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Gỗ mất rất nhiều thời gian để tái tạo, trong khi cây tre chỉ cần khoảng 2-3 năm. Sử dụng khăn giấy khô làm từ rừng tre đạt chuẩn FSC giúp bảo vệ môi trường bền vững hơn.",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Image.asset("assets/icon/iconnot.png"),
+                                    SizedBox(height: 10),
+                                    Text("Đóng", style: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.bold),),
+                                  ],
+                                ),
                               ),
                             ),
                             isDismissible: true,

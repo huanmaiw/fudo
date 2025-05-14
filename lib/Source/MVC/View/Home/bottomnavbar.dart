@@ -1,46 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tryhard/Source/MVC/View/Card/card_screen.dart';
 import 'package:tryhard/Source/MVC/View/Order/order_list_screen.dart';
 import 'package:tryhard/Source/MVC/View/Product/product_page.dart';
 import 'package:tryhard/Source/MVC/View/Profile/profile_screen.dart';
+import 'BottomNavBar/bottom_nav_controller.dart';
 import 'BottomNavBar/custom_bottom_navbar.dart';
 import 'Widget/home_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  final BottomNavController controller = Get.put(BottomNavController());
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  int cartItemCount = 3;
-
-  final List<Widget> _pages = [
-    const HomeContent(),
-    const ProductPage(),
+  final List<Widget> pages = [
+     HomeContent(),
+     ProductPage(),
     CartPage(),
     OrderListPage(),
     ProfilePage(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() => Scaffold(
       backgroundColor: Colors.white,
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        cartItemCount: cartItemCount,
-      ),
-    );
+      body: pages[controller.currentIndex.value],
+      bottomNavigationBar: const CustomBottomNavBar(),
+    ));
   }
 }

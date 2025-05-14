@@ -18,7 +18,7 @@ class VariantChip extends StatelessWidget {
 class QtyButton extends StatelessWidget {
   final IconData icon;
 
-  const QtyButton({required this.icon});
+  const QtyButton({required this.icon, required void Function() onTap});
 
   @override
   Widget build(BuildContext context) {
