@@ -1,35 +1,35 @@
+// views/home_combo_suggestion_section.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'mvc/combo_controller.dart';
 
 class HomeComboSuggestionSection extends StatelessWidget {
   const HomeComboSuggestionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final comboController = Get.put(ComboController());
+
     return Column(
       children: [
         _sectionTitle(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Row(
-            children: const [
-              Expanded(
-                child: _ComboCard(
-                  title: 'Combo mình ên\n02 túi lớn TISSUEPack x 01 lốc',
-                  image: 'assets/pub/hot2.png',
-                  price: '80.000đ',
-                ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _ComboCard(
-                  title: 'Dành cho 2 người\n03 túi lớn TISSUEPack x 02 lốc',
-                  image: 'assets/pub/hot2.png',
-                  price: '80.000đ',
-                ),
-              ),
-            ],
-          ),
-        )
+          child: Obx(() {
+            return Row(
+              children: comboController.comboSuggestions.map((combo) {
+                return Expanded(
+                  child: _ComboCard(
+                    title: combo.title,
+                    image: combo.image,
+                    price: combo.price,
+                  ),
+                );
+              }).toList(),
+            );
+          }),
+        ),
       ],
     );
   }
@@ -38,12 +38,15 @@ class HomeComboSuggestionSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
-        children:  [
+        children: [
           Image.asset("assets/voucher/bt8.png"),
-          SizedBox(width: 4),
-          Text("Combo gợi ý", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-          Spacer(),
-          Text("Xem thêm", style: TextStyle(color: Colors.green)),
+          const SizedBox(width: 4),
+          const Text(
+            "Combo gợi ý",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+          const Spacer(),
+          const Text("Xem thêm", style: TextStyle(color: Colors.green)),
         ],
       ),
     );
@@ -108,9 +111,12 @@ class _ComboCard extends StatelessWidget {
           child: Container(
             color: Colors.orange,
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            child: const Text("Combo", style: TextStyle(color: Colors.white, fontSize: 10)),
+            child: const Text(
+              "Combo",
+              style: TextStyle(color: Colors.white, fontSize: 10),
+            ),
           ),
-        )
+        ),
       ],
     );
   }

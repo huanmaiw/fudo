@@ -1,32 +1,42 @@
+// views/home_category_section.dart
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../Product/product_page.dart';
+import 'mvc/category_controller.dart';
 
 class HomeCategorySection extends StatelessWidget {
   const HomeCategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categoryController = Get.put(CategoryController());
+
     return Column(
       children: [
         _sectionTitle(context),
         Padding(
           padding: const EdgeInsets.all(12),
-          child: GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio: 2.3,
-            children: const [
-              _CategoryItem(title: "Giấy vệ sinh", image: "assets/pub/cate1.png"),
-              _CategoryItem(title: "Khăn giấy rút", image: "assets/pub/cate2.png"),
-              _CategoryItem(title: "Gói bỏ túi", image: "assets/pub/cate3.png"),
-              _CategoryItem(title: "Hộp để bàn", image: "assets/pub/cate4.png"),
-            ],
-          ),
-        )
+          child: Obx(() {
+            return GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 2.3,
+              ),
+              itemCount: categoryController.categories.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final category = categoryController.categories[index];
+                return _CategoryItem(
+                  title: category.title,
+                  image: category.image,
+                );
+              },
+            );
+          }),
+        ),
       ],
     );
   }
@@ -35,14 +45,15 @@ class HomeCategorySection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
-        children:  [
+        children: [
           Image.asset("assets/voucher/bt7.png"),
-          SizedBox(width: 4),
-          Text("Danh mục", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-          Spacer(),
+          const SizedBox(width: 4),
+          const Text("Danh mục", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+          const Spacer(),
           GestureDetector(
-            onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductPage())),
-              child: Text("Xem thêm", style: TextStyle(color: Colors.green))),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductPage())),
+            child: const Text("Xem thêm", style: TextStyle(color: Colors.green)),
+          ),
         ],
       ),
     );

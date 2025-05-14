@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
         title: Row(
           children: [
             GestureDetector(
-                onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage())),
+                onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage())),
                 child: Image.asset("assets/icon/back.png", width: 40, height: 40)),
             const Text(
               'Cá nhân',

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tryhard/Source/MVC/Controller/cart_controller.dart';
 
 
+import '../Home/bottomnavbar.dart';
 import 'cart_item_tile.dart';
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -13,10 +14,19 @@ class CartPage extends StatelessWidget {
     final controller = Get.put(CartController());
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('Giỏ hàng', style: TextStyle(color: Colors.black)),
+        title: Row(
+          children: [
+            GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage())),
+                child: Image.asset("assets/icon/back.png", width: 40, height: 40)),
+            const Text('Giỏ hàng', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          ],
+        ),
         centerTitle: false,
         iconTheme: const IconThemeData(color: Colors.black),
       ),

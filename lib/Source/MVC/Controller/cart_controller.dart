@@ -1,6 +1,7 @@
 // lib/modules/cart/controller/cart_controller.dart
 import 'package:get/get.dart';
-import 'package:tryhard/Source/MVC/Model/cart_item_model.dart';
+
+import '../temp_model/cart_item_model.dart';
 
 class CartController extends GetxController {
   var cartItems = <CartItemModel>[].obs;
